@@ -2,7 +2,7 @@
     $serverName = "localhost";
     $userName = "root";
     $password = "";
-    $database = "the malang resto";
+    $database = "the_malang_resto";
 
     //buat koneksi
     $koneksi = mysqli_connect($serverName, $userName, $password, $database);

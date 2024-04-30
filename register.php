@@ -1,6 +1,25 @@
 <?php
 include "connect.php";
-include "data.php"
+include "data.php";
+
+// Fungsi untuk membersihkan input
+// function cleanInput($input) {
+//     global $conn;
+//     return mysqli_real_escape_string($conn, htmlspecialchars($input));
+// }
+
+// Proses ketika form disubmit
+if (isset($_POST['submit'])) {
+    // Bersihkan input dari form
+    $nama = $_POST['nama'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    // Query untuk menyimpan data ke database
+    $query = "INSERT INTO user (nama_user, email_user, password_user) VALUES ('$nama', '$email', '$password')";
+    $register = mysqli_query($koneksi,$query);
+
+}
 ?>
 
 <body>
@@ -16,30 +35,19 @@ include "data.php"
             </div>
         </div>
 
-        <!-- login page -->
-        <div class="container-form">
-            <!-- ******* -->
-            <div class="register-form">
-                <h1 class="text-center">Register</h1>
-                <div class="User mt-4 register-label">
-                    <div class="form-floating mb-3 ">
-                        <input type="email" class="form-control login-input" id="floatingInput" placeholder="name@example.com">
-                        <label class="reg" for="floatingInput">Username</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input tpe="password" class="form-control login-input" id="floatingPassword" placeholder="">
-                        <label class="reg" for="floatingPassword">Email</label>
-                    </div>
-                    <div class="form-floating">
-                        <input tpe="password" class="form-control login-input" id="floatingPassword" placeholder="">
-                        <label class="reg" for="floatingPassword">Password</label>
-                    </div>
-                </div>
-            </div>
+            <h2>Registrasi</h2>
+            <form method="post" action="">
+                <label>Nama:</label><br>
+                    <input type="text" name="nama"><br><br>
+                <label>Email:</label><br>
+                    <input type="email" name="email"><br><br>
+                <label>Password:</label><br>
+                    <input type="password" name="password"><br><br>
 
             <div class="w-100 mt-5">
-                <button class="BT-form">Register</button>
+                <input type="submit" value="Register" name="submit">
             </div>
+            </form>
         </div>
     </div>
 </body>

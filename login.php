@@ -1,6 +1,28 @@
 <?php
 include "connect.php";
 include "data.php";
+
+session_start();
+
+if (isset($_POST['login'])) {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    $sql= ("SELECT * FROM user where nama_user = '.$username.' and password_user = '$password'");
+    $result = $db->query($sql);
+
+    if ($result->num_rows > 0) {+
+        $data = $result->fetch_assoc();
+        $_SESSION['nama_user']=$data['nama_user'];
+        $_SESSION['password_user']=$data['password_user'];
+        $_SESSION['status_login']=true;
+        echo "<script>alert('Login Berhasil');location.href='home.php';</script>";
+    }
+
+    else{
+        echo "<script>alert('Login Gagal');location.href='index.php';</script>";
+    }
+}
 ?>
 
 <body>
@@ -16,7 +38,7 @@ include "data.php";
             </div>
         </div>
 
-        <div class="container-form">
+        <!-- <div class="container-form">
             <div class="login-form">
                 <h1 class="text-center">Login</h1>
                 <div class="User mt-4 login-label">
@@ -42,8 +64,19 @@ include "data.php";
                 </div>
                 <button class="button-form">Register</button>
             </div>
-        </div>
+        </div> -->
     </div>
+
+    <form method="post" action="">
+                <label>Nama:</label><br>
+                    <input type="text" name="nama"><br><br>
+                <label>Password:</label><br>
+                    <input type="password" name="password"><br><br>
+
+            <div class="w-100 mt-5">
+                <input type="submit" value="Login" name="login">
+            </div>
+            </form>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
